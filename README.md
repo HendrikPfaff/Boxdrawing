@@ -11,6 +11,46 @@ library("devtools")
 install_github("hendrikpfaff/boxdrawing")
 ```
 
-## Example
+## Usage
+
+### Exactbox
+The Exactbox-algorithm creates a Mixed integer programming model and tries to find a solution.
 
 
+### Fastbox
+The Fastbox-algorithm uses a heuristic approach, characterizing and then discriminating elements for its boxes. 
+
+
+Both algorithms return a list of 13 different elements:
+* __execTime__ - Execution time of the function in seconds.
+* __colNum__ - Number of Features in the data set.
+* __trainingTP__ - Number of True Positive classifications in the training data for every tradeoff-parameter.
+* __trainingFP__ - Number of False Positive classifications in the training data for every tradeoff-parameter.
+* __trainingTN__ - Number of True Negative classifications in the training data for every tradeoff-parameter.
+* __trainingFN__ - Number of False Negative classifications in the training data for every tradeoff-parameter.
+* __testingTP__ - Number of True Positive classifications in the testing data for every tradeoff-parameter.
+* __testingFP__ - Number of False Positive classifications in the testing data for every tradeoff-parameter.
+* __testingTN__ - Number of True Negative classifications in the testing data for every tradeoff-parameter.
+* __testingFN__ - Number of False Negative classifications in the testing data for every tradeoff-parameter.
+* __tradeoff__ - All used tradeoff-parameters.
+* __lowerIdeal__ - The lower boundary of every dimension per box.
+* __upperIdeal__ - The upper boundary of every dimension per box.
+
+### Example
+```{r}
+library(boxdrawing)
+
+# Split sample data set into four parts.
+
+# Execute classifiers.
+ebox <- exactboxes(positivetraining, negativetraining, positivetesting, negativetesting, 1, 1, 0.01, varType='C')
+fbox <- fastboxes(positivetraining, negativetraining, positivetesting, negativetesting, 1,1, 1)
+
+# Compare found box boundaries.
+printBoundaries(ebox)
+printBoundaries(fbox)
+
+# Apply the boundaries on the data.
+applyExact <- applyBoundaries(ebox, data)
+applyFast <- applyBoundaries(fbox, data)
+```
