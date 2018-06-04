@@ -12,14 +12,12 @@ install_github("hendrikpfaff/boxdrawing")
 ```
 
 ## Usage
-
 ### Exactbox
 The Exactbox-algorithm creates a Mixed integer programming model and tries to find a solution.
 
 
 ### Fastbox
 The Fastbox-algorithm uses a heuristic approach, characterizing and then discriminating elements for its boxes. 
-
 
 Both algorithms return a list of 13 different elements:
 * __execTime__ - Execution time of the function in seconds.
@@ -39,8 +37,6 @@ Both algorithms return a list of 13 different elements:
 ### Example
 ```{r}
 library(boxdrawing)
-
-# Split sample data set into four parts.
 
 # Execute classifiers.
 ebox <- exactboxes(positivetraining, negativetraining, positivetesting, negativetesting, 1, 1, 0.01, varType='C')
